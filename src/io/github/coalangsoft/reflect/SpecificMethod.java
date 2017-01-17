@@ -19,6 +19,10 @@ public class SpecificMethod extends Modified implements Func<Object[], Object>{
 		return new SpecificMethod(o, method);
 	}
 	
+	public void setAccessible(boolean b){
+		method.setAccessible(b);
+	}
+	
 	public Object call(Object[] p) {
 		try {
 			return method.invoke(object, p);
