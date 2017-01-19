@@ -2,18 +2,31 @@ package io.github.coalangsoft.reflect;
 
 import io.github.coalangsoft.lib.data.Func;
 import io.github.coalangsoft.lib.data.Pair;
-import io.github.coalangsoft.lib.sequence.BaseSequence;
+import io.github.coalangsoft.lib.sequence.AbstractSequence;
+import io.github.coalangsoft.lib.sequence.SequenceTool;
 
-public class ClassSequence extends BaseSequence<Clss>{
+public class ClassSequence extends AbstractSequence<Clss,ClassSequence>{
 	
 	public ClassSequence(Clss... array) {
-		super(makeTool(new Func<Integer, Clss[]>() {
+		super(new SequenceTool<Clss,ClassSequence>(
+				new Func<Clss[],ClassSequence>(){
 
-			public Clss[] call(Integer p) {
-				return new Clss[p];
-			}
-			
-		}), array);
+					@Override
+					public ClassSequence call(Clss[] p) {
+						return new ClassSequence(p);
+					}
+					
+				},
+				new Func<Integer, Clss[]>(){
+
+					@Override
+					public Clss[] call(Integer p) {
+						return new Clss[p];
+					}
+					
+				}
+				
+			), array);
 	}
 	
 	public static ClassSequence make(Class<?>... cs){
