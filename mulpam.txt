@@ -1,1 +1,4 @@
 github coalang-soft coalib-java
+dir-create ./reflect-java/standalone-src
+dir-copy ./reflect-java/src ./reflect-java/standalone-src
+dir-copy ./coalib-java/src ./reflect-java/standalone-src
