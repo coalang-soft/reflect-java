@@ -1,9 +1,14 @@
 package io.github.coalangsoft.reflect;
 
+import io.github.coalangsoft.lib.reflect.CustomClassFinder;
+
 public class Clss extends Modified{
 	
 	public final Class<?> base;
 	
+	public static Clss make(String name, CustomClassFinder cf) throws ClassNotFoundException{
+		return new Clss(cf.find(name));
+	}
 	public static Clss make(String name) throws ClassNotFoundException{
 		return new Clss(Class.forName(name));
 	}
