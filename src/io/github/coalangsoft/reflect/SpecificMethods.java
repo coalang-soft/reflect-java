@@ -1,12 +1,11 @@
 package io.github.coalangsoft.reflect;
 
 import io.github.coalangsoft.lib.data.Func;
-import io.github.coalangsoft.lib.sequence.ModifiableSequence;
 import io.github.coalangsoft.lib.sequence.SequenceTool;
 
 import java.util.ArrayList;
 
-public class SpecificMethods extends ModifiableSequence<SpecificMethod, SpecificMethods>{
+public class SpecificMethods extends MultipleCallableSequence<SpecificMethod, SpecificMethods>{
 	
 	public SpecificMethods(SpecificMethod[] array){
 		super(new SequenceTool<SpecificMethod, SpecificMethods>(

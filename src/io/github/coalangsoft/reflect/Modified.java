@@ -2,7 +2,7 @@ package io.github.coalangsoft.reflect;
 
 import java.lang.reflect.Modifier;
 
-public class Modified {
+public class Modified implements IModified{
 	
 	private int modifiers;
 

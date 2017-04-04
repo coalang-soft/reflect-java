@@ -4,7 +4,7 @@ import io.github.coalangsoft.lib.data.Func;
 
 import java.lang.reflect.Method;
 
-public class SpecificMethod extends Modified implements Func<Object[], Object>{
+public class SpecificMethod extends Modified implements Func<Object[], Object>, SingleCallable{
 
 	private Method method;
 	private Object object;
@@ -23,12 +23,11 @@ public class SpecificMethod extends Modified implements Func<Object[], Object>{
 		method.setAccessible(b);
 	}
 	
-	public Object call(Object[] p) {
-		try {
-			return method.invoke(object, p);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
+	public Object call(Object[] p, Func<Object[], Object[]> cast) {
+		if(cast != null){
+			p = cast.call(p);
 		}
+		return call(p);
 	}
 
 	public Object getName() {
@@ -37,6 +36,19 @@ public class SpecificMethod extends Modified implements Func<Object[], Object>{
 
 	public ClassSequence getParameterTypes() {
 		return ClassSequence.make(method.getParameterTypes());
+	}
+
+	public int getParameterCount() {
+		return method.getParameterCount();
+	}
+
+	@Override
+	public Object call(Object[] p) {
+		try {
+			return method.invoke(object, p);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 }

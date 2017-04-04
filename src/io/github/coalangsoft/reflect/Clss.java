@@ -1,8 +1,10 @@
 package io.github.coalangsoft.reflect;
 
+import io.github.coalangsoft.lib.data.Func;
 import io.github.coalangsoft.lib.reflect.CustomClassFinder;
+import io.github.coalangsoft.lib.sequence.SequenceTool;
 
-public class Clss extends Modified{
+public class Clss extends MultipleCallableSequence<Constructor, Clss>{
 	
 	public final Class<?> base;
 	
@@ -12,8 +14,29 @@ public class Clss extends Modified{
 	public static Clss make(String name) throws ClassNotFoundException{
 		return new Clss(Class.forName(name));
 	}
-	public Clss(Class<?> c){
-		super(c.getModifiers());
+	public Clss(Class<?> c) {
+		super(new SequenceTool<Constructor,Clss>(
+				new Func<Constructor[],Clss>(){
+
+					@Override
+					public Clss call(Constructor[] p) {
+						if(p.length == 0){
+							throw new RuntimeException("At least one argument required!");
+						}
+						return p[0].getDeclaringClass();
+					}
+					
+				},
+				new Func<Integer, Constructor[]>(){
+
+					@Override
+					public Constructor[] call(Integer p) {
+						return new Constructor[p];
+					}
+					
+				}
+				
+			), Constructor.cast(c.getConstructors()));
 		this.base = c;
 	}
 	
@@ -59,6 +82,17 @@ public class Clss extends Modified{
 	}
 	public String getName() {
 		return base.getName();
+	}
+	
+	@Override
+	public ClassSequence[] getParameterTypes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public int[] getParameterCounts() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

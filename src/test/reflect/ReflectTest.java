@@ -7,16 +7,16 @@ import io.github.coalangsoft.reflect.Clss;
 
 public class ReflectTest {
 	
+	public static void a(String s){
+		System.out.println("String");
+	}
+	public static void a(int s){
+		System.out.println("Int");
+	}
+	
 	public static void main(String[] args) {
-		ClassSequence s = ClassSequence.make(int.class, char.class);
-		System.out.println(s.matcher(ClassSequence.make(int.class, char.class, void.class))
-			.find(new Func<Pair<Clss,Clss>, Boolean>() {
-				
-				public Boolean call(Pair<Clss, Clss> p) {
-					return p.getA().base == p.getB().base;
-				}
-			})
-		);
+		Clss c = new Clss(ReflectTest.class);
+		c.getMethods(null, "a").call(new Object[]{7}, null);
 	}
 
 }
