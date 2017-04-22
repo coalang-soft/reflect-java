@@ -45,6 +45,9 @@ public class SpecificMethod extends Modified implements Func<Object[], Object>, 
 	@Override
 	public Object call(Object[] p) {
 		try {
+			if(isPublic()){
+				method.setAccessible(true);
+			}
 			return method.invoke(object, p);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
