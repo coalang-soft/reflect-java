@@ -1,7 +1,7 @@
 package io.github.coalangsoft.reflect;
 
 import io.github.coalangsoft.lib.data.Func;
-import io.github.coalangsoft.lib.log.Logger;
+import io.github.coalangsoft.lib.log.TimeLogger;
 import io.github.coalangsoft.lib.reflect.CustomClassFinder;
 import io.github.coalangsoft.lib.sequence.SequenceTool;
 
@@ -13,7 +13,7 @@ public class Clss extends MultipleCallableSequence<Constructor, Clss>{
 		try {
 			return new Clss(cf.find(name));
 		}catch(ClassNotFoundException e){
-			Logger.err.log("Warning: Class not found: " + name);
+			TimeLogger.err.log("Warning: Class not found: " + name);
 			throw e;
 		}
 	}
