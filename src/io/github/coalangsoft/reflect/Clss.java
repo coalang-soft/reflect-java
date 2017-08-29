@@ -5,6 +5,8 @@ import io.github.coalangsoft.lib.log.TimeLogger;
 import io.github.coalangsoft.lib.reflect.CustomClassFinder;
 import io.github.coalangsoft.lib.sequence.SequenceTool;
 
+import java.lang.reflect.Field;
+
 public class Clss extends MultipleCallableSequence<Constructor, Clss>{
 	
 	public final Class<?> base;
@@ -92,13 +94,35 @@ public class Clss extends MultipleCallableSequence<Constructor, Clss>{
 	
 	@Override
 	public ClassSequence[] getParameterTypes() {
-		// TODO Auto-generated method stub
-		return null;
+		ClassSequence[] res = new ClassSequence[length()];
+		for(int i = 0; i < res.length; i++){
+			res[i] = at(i).getParameterTypes();
+		}
+		return res;
 	}
 	@Override
 	public int[] getParameterCounts() {
-		// TODO Auto-generated method stub
-		return null;
+		int[] res = new int[length()];
+		for(int i = 0; i < res.length; i++){
+			res[i] = at(i).getParameterCount();
+		}
+		return res;
 	}
-	
+
+    public Field getField(String name) {
+		try {
+			return base.getField(name);
+		} catch (NoSuchFieldException e) {
+			return null;
+		}
+	}
+
+	public ClassSequence innerClasses(){
+		return ClassSequence.make(base.getDeclaredClasses());
+	}
+
+	public Clss innerClass(String name){
+		return innerClasses().first((c) -> c.getSimpleName().equals(name));
+	}
+
 }
