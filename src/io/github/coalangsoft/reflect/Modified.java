@@ -19,5 +19,6 @@ public class Modified implements IModified{
 	public boolean isProtected(){
 		return Modifier.isProtected(modifiers);
 	}
+	public int getModifiers(){return modifiers;}
 	
 }

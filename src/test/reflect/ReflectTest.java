@@ -16,7 +16,7 @@ public class ReflectTest {
 	
 	public static void main(String[] args) {
 		Clss c = new Clss(ReflectTest.class);
-		c.getMethods(null, "a").call(new Object[]{7}, null);
+		c.getMethods(null, "a").call(new Object[]{"ff"});
 	}
 
 }

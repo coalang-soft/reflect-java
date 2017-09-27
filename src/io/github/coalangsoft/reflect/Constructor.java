@@ -31,6 +31,11 @@ public class Constructor extends Modified implements SingleCallable{
 		return c.getParameterCount();
 	}
 
+	@Override
+	public String getName() {
+		return "";
+	}
+
 	public static Constructor[] cast(
 			java.lang.reflect.Constructor<?>[] constructors) {
 		Constructor[] cs = new Constructor[constructors.length];

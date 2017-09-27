@@ -6,8 +6,9 @@ import io.github.coalangsoft.lib.reflect.CustomClassFinder;
 import io.github.coalangsoft.lib.sequence.SequenceTool;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 
-public class Clss extends MultipleCallableSequence<Constructor, Clss>{
+public class Clss extends MultipleCallableSequence<Constructor, Clss> implements IClass {
 	
 	public final Class<?> base;
 	
@@ -125,4 +126,23 @@ public class Clss extends MultipleCallableSequence<Constructor, Clss>{
 		return innerClasses().first((c) -> c.getSimpleName().equals(name));
 	}
 
+	@Override
+	public boolean isPublic() {
+		return Modifier.isPublic(getModifiers());
+	}
+
+	@Override
+	public boolean isPrivate() {
+		return Modifier.isPrivate(getModifiers());
+	}
+
+	@Override
+	public boolean isProtected() {
+		return Modifier.isProtected(getModifiers());
+	}
+
+	@Override
+	public int getModifiers() {
+		return base.getModifiers();
+	}
 }

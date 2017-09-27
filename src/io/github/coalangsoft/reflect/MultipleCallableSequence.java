@@ -4,6 +4,8 @@ import io.github.coalangsoft.lib.data.Func;
 import io.github.coalangsoft.lib.sequence.AbstractSequence;
 import io.github.coalangsoft.lib.sequence.SequenceTool;
 
+import java.util.ArrayList;
+
 public class MultipleCallableSequence<A extends SingleCallable,B extends MultipleCallableSequence<A,B>> extends AbstractSequence<A,B> implements MultipleCallable<A>{
 
 	public MultipleCallableSequence(SequenceTool<A, B> tool, A[] values) {
@@ -45,6 +47,18 @@ public class MultipleCallableSequence<A extends SingleCallable,B extends Multipl
 			ret[i] = at(i).getParameterCount();
 		}
 		return ret;
+	}
+
+	public B byParameterTypes(Class<?>... types){
+		ClassSequence[] paramTypes = getParameterTypes();
+		ArrayList<A> l = new ArrayList<A>();
+		for(int i = 0; i < values.length; i++){
+			A m = values[i];
+			if(m.getParameterTypes().matches(ClassSequence.make(types))){
+				l.add(m);
+			}
+		}
+		return tool.form(l.toArray(tool.array(0)));
 	}
 	
 }

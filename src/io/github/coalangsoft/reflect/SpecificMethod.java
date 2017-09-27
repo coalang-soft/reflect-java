@@ -30,7 +30,7 @@ public class SpecificMethod extends Modified implements Func<Object[], Object>, 
 		return call(p);
 	}
 
-	public Object getName() {
+	public String getName() {
 		return method.getName();
 	}
 

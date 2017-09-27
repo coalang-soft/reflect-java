@@ -39,16 +39,5 @@ public class SpecificMethods extends MultipleCallableSequence<SpecificMethod, Sp
 		}
 		return new SpecificMethods(l.toArray(values));
 	}
-	
-	public SpecificMethods byParameterTypes(Class<?>... types){
-		ArrayList<SpecificMethod> l = new ArrayList<SpecificMethod>();
-		for(int i = 0; i < values.length; i++){
-			SpecificMethod m = values[i];
-			if(m.getParameterTypes().matches(ClassSequence.make(types))){
-				l.add(m);
-			}
-		}
-		return new SpecificMethods(l.toArray(values));
-	}
 
 }
