@@ -145,4 +145,5 @@ public class Clss extends MultipleCallableSequence<Constructor, Clss> implements
 	public int getModifiers() {
 		return base.getModifiers();
 	}
+	
 }

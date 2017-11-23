@@ -12,19 +12,15 @@ public class MultipleCallableSequence<A extends SingleCallable,B extends Multipl
 		super(tool, values);
 	}
 	
-	public Object call(Object[] os, Func<Object[], Object[]> caster) {
-		if(caster != null){
-			os = caster.call(os);
-		}
-		return call(os);
-	}
-
-	@Override
 	public Object call(Object[] os) {
+		return call(os, (a,b) -> a);
+	}
+	
+	public Object call(Object[] os, Caster caster) {
 		for(int i = 0; i < length(); i++){
 			if(at(i).getParameterCount() == os.length){
 				try{
-					return at(i).call(os);
+					return at(i).call(caster.cast(os, at(i).getParameterTypes()));
 				}catch(RuntimeException e){}
 			}
 		}
